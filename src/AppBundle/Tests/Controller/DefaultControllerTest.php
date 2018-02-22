@@ -22,7 +22,8 @@ class DefaultControllerTest extends WebTestCase
 		self::$container = $kernel->getContainer();
 	}
 	
-	private function getAsserts(){
+	private function getAsserts()
+	{
 		$asserts = [
 			'A' => 50,
 			'AB' => 80,
@@ -46,31 +47,32 @@ class DefaultControllerTest extends WebTestCase
 	 * test the controller
 	 */
 	public function testIndex()
-    {
-	    $client = static::createClient();
-	
-	    $asserts = $this->getAsserts();
-	    
-	    foreach($asserts as $sku => $price){
-		    $crawler = $client->request('GET', '/?skus='.$sku);
-		    $this->assertEquals(200, $client->getResponse()->getStatusCode());
-		    $this->assertContains('Order price: '.$price, $crawler->filter('h3')->text());
-	    }
-    }
+	{
+		$client = static::createClient();
+		
+		$asserts = $this->getAsserts();
+		
+		foreach ($asserts as $sku => $price) {
+			$crawler = $client->request('GET', '/?skus=' . $sku);
+			$this->assertEquals(200, $client->getResponse()->getStatusCode());
+			$this->assertContains('Order price: ' . $price, $crawler->filter('h3')->text());
+		}
+	}
 	
 	/**
 	 * test the service
 	 */
-    public function testCheckoutService(){
-	    $cart = self::$container->get('cart');
-	
-	    $asserts = $this->getAsserts();
-	
-	    foreach($asserts as $sku => $price){
-	    	$sale = $cart->checkout($sku);
+	public function testCheckoutService()
+	{
+		$cart = self::$container->get('cart');
 		
-		    $this->assertEquals($price, $sale->getPrice());
-	    }
-    }
+		$asserts = $this->getAsserts();
+		
+		foreach ($asserts as $sku => $price) {
+			$sale = $cart->checkout($sku);
+			
+			$this->assertEquals($price, $sale->getPrice());
+		}
+	}
 	
 }

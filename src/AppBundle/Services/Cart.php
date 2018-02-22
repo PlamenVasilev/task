@@ -59,7 +59,7 @@ class Cart
 		$this->itemsRepository->cacheAllItems(array_keys($products));
 		
 		$totalprice = 0;
-		foreach($products as $sku => $count){
+		foreach ($products as $sku => $count) {
 			$price = $this->itemsRepository->getSkuPrice($sku, $count);
 			$totalprice += $price;
 		}
