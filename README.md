@@ -3,7 +3,7 @@ siteground
 
 ## Installation
 * create mysql database & user
-* Unzip the code
+* clone the code
 * run `composer install` and fill database parameters
 * create database schema `php app/console doctrine:schema:create`
 * insert test data
